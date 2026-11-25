@@ -40,104 +40,95 @@
     </style>
 </head>
 <body class="bg-[#F4F6F9] text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:p-2 focus:bg-white focus:text-[#0F294A] focus:font-bold focus:rounded-md">Pular para o conteúdo</a>
 
     <!-- Cabeçalho Institucional Azul-Marinho & Linha Vermelha -->
     <header class="bg-[#0F294A] text-white sticky top-0 z-30 shadow-md border-b-4 border-[#E30613]">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between py-3 gap-3">
+            <!-- Linha Superior: Identidade Visual SENAI & Ações Globais -->
+            <div class="flex items-center justify-between py-2.5 gap-3 border-b border-white/10">
                 <!-- Identidade Visual SENAI -->
-                <div class="flex items-center justify-between gap-3">
-                    <div class="flex items-center gap-3 min-w-0">
-                        <div class="shrink-0 rounded-md overflow-hidden shadow-sm border border-white/15 bg-[#FF0000]" title="SENAI">
-                            <svg viewBox="0 0 380 92" class="h-9 sm:h-10 w-auto block" role="img" aria-label="Logo SENAI">
-                                <rect width="380" height="92" fill="#FF0000"/>
-                                <rect x="0" y="15" width="20" height="3.8" fill="#FFFFFF"/>
-                                <rect x="0" y="30.5" width="20" height="3.8" fill="#FFFFFF"/>
-                                <rect x="0" y="46" width="20" height="3.8" fill="#FFFFFF"/>
-                                <rect x="0" y="61.5" width="20" height="3.8" fill="#FFFFFF"/>
-                                <rect x="0" y="77" width="20" height="3.8" fill="#FFFFFF"/>
-                                <rect x="360" y="15" width="20" height="3.8" fill="#FFFFFF"/>
-                                <rect x="360" y="30.5" width="20" height="3.8" fill="#FFFFFF"/>
-                                <rect x="360" y="46" width="20" height="3.8" fill="#FFFFFF"/>
-                                <rect x="360" y="61.5" width="20" height="3.8" fill="#FFFFFF"/>
-                                <rect x="360" y="77" width="20" height="3.8" fill="#FFFFFF"/>
-                                <g transform="translate(190, 48) skewX(-12) scale(1.06, 1)">
-                                    <text x="0" y="27" text-anchor="middle" fill="#FFFFFF" font-family="'Arial Black', 'Inter', Impact, sans-serif" font-weight="900" font-size="78" letter-spacing="2">SENAI</text>
-                                </g>
-                            </svg>
-                        </div>
-                        <div class="border-l border-white/20 pl-3 min-w-0">
-                            <div class="flex items-center gap-2">
-                                <h1 class="text-sm sm:text-base font-extrabold text-white tracking-tight truncate">Controle de Estoque e Validades</h1>
-                                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/10 text-sky-200 border border-white/15 shrink-0">2D</span>
-                            </div>
-                            <p class="text-[11px] sm:text-xs text-slate-300 truncate">Gestão de Insumos, Endereçamento Virtual & Monitoramento de Lotes</p>
-                        </div>
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="shrink-0 rounded-md overflow-hidden shadow-sm border border-white/15 bg-[#FF0000]" title="SENAI">
+                        <svg viewBox="0 0 380 92" class="h-9 sm:h-10 w-auto block" role="img" aria-label="Logo SENAI">
+                            <rect width="380" height="92" fill="#FF0000"/>
+                            <rect x="0" y="15" width="20" height="3.8" fill="#FFFFFF"/>
+                            <rect x="0" y="30.5" width="20" height="3.8" fill="#FFFFFF"/>
+                            <rect x="0" y="46" width="20" height="3.8" fill="#FFFFFF"/>
+                            <rect x="0" y="61.5" width="20" height="3.8" fill="#FFFFFF"/>
+                            <rect x="0" y="77" width="20" height="3.8" fill="#FFFFFF"/>
+                            <rect x="360" y="15" width="20" height="3.8" fill="#FFFFFF"/>
+                            <rect x="360" y="30.5" width="20" height="3.8" fill="#FFFFFF"/>
+                            <rect x="360" y="46" width="20" height="3.8" fill="#FFFFFF"/>
+                            <rect x="360" y="61.5" width="20" height="3.8" fill="#FFFFFF"/>
+                            <rect x="360" y="77" width="20" height="3.8" fill="#FFFFFF"/>
+                            <g transform="translate(190, 48) skewX(-12) scale(1.06, 1)">
+                                <text x="0" y="27" text-anchor="middle" fill="#FFFFFF" font-family="'Arial Black', 'Inter', Impact, sans-serif" font-weight="900" font-size="78" letter-spacing="2">SENAI</text>
+                            </g>
+                        </svg>
                     </div>
-
-                    <!-- Botões Rápidos Mobile -->
-                    <div class="flex xl:hidden items-center gap-1.5 shrink-0">
-                        <button onclick="openImportSpreadsheetModal()" class="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-semibold px-2.5 py-2 rounded-lg">
-                            Importar
-                        </button>
-                        <button onclick="openAllocateModal()" class="bg-[#E30613] hover:bg-[#C80510] text-white text-xs font-bold px-3 py-2 rounded-lg shadow-sm">
-                            + Item
-                        </button>
-                        <button onclick="confirmClearAllData()" title="Limpar Dados" class="bg-rose-950/70 hover:bg-[#E30613] text-rose-200 hover:text-white border border-rose-400/30 text-xs font-semibold px-2.5 py-2 rounded-lg">
-                            Limpar
-                        </button>
+                    <div class="border-l border-white/20 pl-3 min-w-0">
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-sm sm:text-base font-extrabold text-white tracking-tight truncate">Controle de Estoque e Validades</h1>
+                            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/10 text-sky-200 border border-white/15 shrink-0">2D</span>
+                        </div>
+                        <p class="hidden md:block text-[11px] text-slate-300 truncate">Gestão de Insumos, Endereçamento Virtual & Monitoramento de Lotes</p>
                     </div>
                 </div>
 
-                <!-- Abas Principais -->
-                <nav class="flex items-center bg-[#091B33] p-1 rounded-xl border border-white/10 overflow-x-auto">
-                    <button onclick="switchTab('dashboard')" id="tab-dashboard" class="nav-btn flex-1 xl:flex-none px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 bg-white text-[#0F294A] shadow-sm whitespace-nowrap">
-                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-                        <span>Resumo Geral</span>
-                    </button>
-                    <button onclick="switchTab('map')" id="tab-map" class="nav-btn flex-1 xl:flex-none px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2 whitespace-nowrap">
-                        <i data-lucide="map" class="w-4 h-4"></i>
-                        <span>Mapa 2D (Virtual)</span>
-                    </button>
-                    <button onclick="switchTab('catalog')" id="tab-catalog" class="nav-btn flex-1 xl:flex-none px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2 whitespace-nowrap">
-                        <i data-lucide="package" class="w-4 h-4"></i>
-                        <span>Produtos</span>
-                    </button>
-                    <button onclick="switchTab('history')" id="tab-history" class="nav-btn flex-1 xl:flex-none px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2 whitespace-nowrap">
-                        <i data-lucide="history" class="w-4 h-4"></i>
-                        <span>Histórico</span>
-                    </button>
-                </nav>
-
-                <!-- Ações Globais Desktop -->
-                <div class="hidden xl:flex items-center gap-2 shrink-0">
-                    <button onclick="openImportSpreadsheetModal()" class="bg-[#183B66] hover:bg-[#1F497D] text-white border border-white/15 text-xs font-semibold px-3 py-2.5 rounded-lg transition-colors flex items-center gap-1.5">
+                <!-- Ações Globais -->
+                <div class="flex items-center gap-2 shrink-0">
+                    <button onclick="openImportSpreadsheetModal()" class="hidden md:inline-flex bg-[#183B66] hover:bg-[#1F497D] text-white border border-white/15 text-xs font-semibold px-3 py-2 rounded-lg transition-colors items-center gap-1.5">
                         <i data-lucide="file-spreadsheet" class="w-4 h-4 text-amber-300"></i>
                         <span>Importar Planilha</span>
                     </button>
-                    <button onclick="openProductModal()" class="bg-[#183B66] hover:bg-[#1F497D] text-white border border-white/15 text-xs font-semibold px-3 py-2.5 rounded-lg transition-colors flex items-center gap-1.5">
+                    <button onclick="openProductModal()" class="hidden sm:inline-flex bg-[#183B66] hover:bg-[#1F497D] text-white border border-white/15 text-xs font-semibold px-3 py-2 rounded-lg transition-colors items-center gap-1.5">
                         <i data-lucide="plus-circle" class="w-4 h-4 text-sky-300"></i>
                         <span>+ Produto</span>
                     </button>
-                    <button onclick="openAllocateModal()" class="bg-[#E30613] hover:bg-[#C80510] text-white text-xs font-bold px-3.5 py-2.5 rounded-lg shadow-sm transition-colors flex items-center gap-1.5">
+                    <button onclick="openAllocateModal()" class="bg-[#E30613] hover:bg-[#C80510] text-white text-xs font-bold px-3.5 py-2 rounded-lg shadow-sm transition-colors flex items-center gap-1.5">
                         <i data-lucide="plus" class="w-4 h-4"></i>
-                        <span>+ Adicionar Item</span>
+                        <span>+ Item</span>
                     </button>
-                    <button onclick="exportCSV()" title="Exportar Planilha CSV" class="p-2.5 rounded-lg bg-[#183B66] hover:bg-[#1F497D] border border-white/15 text-slate-200 hover:text-white transition-colors">
-                        <i data-lucide="download" class="w-4 h-4"></i>
-                    </button>
-                    <button onclick="exportJSON()" title="Salvar Backup JSON" class="p-2.5 rounded-lg bg-[#183B66] hover:bg-[#1F497D] border border-white/15 text-slate-200 hover:text-white transition-colors">
-                        <i data-lucide="save" class="w-4 h-4"></i>
-                    </button>
-                    <label title="Restaurar Backup JSON" class="p-2.5 rounded-lg bg-[#183B66] hover:bg-[#1F497D] border border-white/15 text-slate-200 hover:text-white transition-colors cursor-pointer">
-                        <i data-lucide="upload" class="w-4 h-4"></i>
-                        <input type="file" accept=".json" onchange="importJSON(event)" class="hidden">
-                    </label>
-                    <button onclick="confirmClearAllData()" title="Limpar Todos os Dados Salvos" class="bg-rose-950/70 hover:bg-[#E30613] text-rose-200 hover:text-white border border-rose-400/30 text-xs font-semibold px-3 py-2.5 rounded-lg transition-all flex items-center gap-1.5">
-                        <i data-lucide="trash-2" class="w-4 h-4"></i>
-                        <span>Limpar Dados</span>
-                    </button>
+                    <div class="hidden lg:flex items-center gap-1.5 pl-1.5 border-l border-white/15">
+                        <button onclick="exportCSV()" title="Exportar Planilha CSV" class="p-2 rounded-lg bg-[#183B66] hover:bg-[#1F497D] border border-white/15 text-slate-200 hover:text-white transition-colors">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                        </button>
+                        <button onclick="exportJSON()" title="Salvar Backup JSON" class="p-2 rounded-lg bg-[#183B66] hover:bg-[#1F497D] border border-white/15 text-slate-200 hover:text-white transition-colors">
+                            <i data-lucide="save" class="w-3.5 h-3.5"></i>
+                        </button>
+                        <label for="header-import-json" title="Restaurar Backup JSON" class="p-2 rounded-lg bg-[#183B66] hover:bg-[#1F497D] border border-white/15 text-slate-200 hover:text-white transition-colors cursor-pointer">
+                            <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                            <input type="file" id="header-import-json" aria-label="Restaurar arquivo de backup JSON" accept=".json" onchange="importJSON(event)" class="hidden">
+                        </label>
+                        <button onclick="confirmClearAllData()" title="Limpar Todos os Dados Salvos" class="bg-rose-950/70 hover:bg-[#E30613] text-rose-200 hover:text-white border border-rose-400/30 text-xs font-semibold px-2.5 py-2 rounded-lg transition-all flex items-center gap-1">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                            <span class="hidden xl:inline">Limpar</span>
+                        </button>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Linha Inferior: Barra de Navegação que Ocupa 100% da Largura do Header -->
+            <div class="py-2">
+                <nav class="w-full bg-[#091B33] p-1 rounded-xl border border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                    <button onclick="switchTab('dashboard')" id="tab-dashboard" class="nav-btn w-full px-3 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 bg-white text-[#0F294A] shadow-sm whitespace-nowrap">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0"></i>
+                        <span class="truncate">Resumo Geral</span>
+                    </button>
+                    <button onclick="switchTab('map')" id="tab-map" class="nav-btn w-full px-3 py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2 whitespace-nowrap">
+                        <i data-lucide="map" class="w-4 h-4 shrink-0"></i>
+                        <span class="truncate">Mapa 2D (Virtual)</span>
+                    </button>
+                    <button onclick="switchTab('catalog')" id="tab-catalog" class="nav-btn w-full px-3 py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2 whitespace-nowrap">
+                        <i data-lucide="package" class="w-4 h-4 shrink-0"></i>
+                        <span class="truncate">Produtos</span>
+                    </button>
+                    <button onclick="switchTab('history')" id="tab-history" class="nav-btn w-full px-3 py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2 whitespace-nowrap">
+                        <i data-lucide="history" class="w-4 h-4 shrink-0"></i>
+                        <span class="truncate">Histórico</span>
+                    </button>
+                </nav>
             </div>
         </div>
     </header>
@@ -147,19 +138,19 @@
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3">
             <div class="flex flex-wrap items-center gap-2 text-xs">
                 <span class="font-extrabold uppercase tracking-wider text-slate-500 text-[11px] mr-1">Legenda:</span>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-bold bg-[#DC2626] text-white shadow-2xs">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md font-bold bg-[#DC2626] text-white shadow-2xs">
                     <span class="w-2 h-2 rounded-full bg-white"></span> Vencido
                 </span>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-bold bg-[#D9530F] text-white shadow-2xs">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md font-bold bg-[#D9530F] text-white shadow-2xs">
                     <span class="w-2 h-2 rounded-full bg-white"></span> Próx. 15 dias
                 </span>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-bold bg-[#FACC15] text-slate-900 shadow-2xs">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md font-bold bg-[#FACC15] text-slate-900 shadow-2xs">
                     <span class="w-2 h-2 rounded-full bg-slate-900"></span> Próx. 30 dias
                 </span>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-bold bg-[#16A34A] text-white shadow-2xs">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md font-bold bg-[#16A34A] text-white shadow-2xs">
                     <span class="w-2 h-2 rounded-full bg-white"></span> Longe de vencer
                 </span>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-bold bg-slate-500 text-white shadow-2xs">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md font-bold bg-slate-500 text-white shadow-2xs">
                     <span class="w-2 h-2 rounded-full bg-white"></span> Sem validade
                 </span>
             </div>
@@ -178,50 +169,68 @@
     </div>
 
     <!-- Conteúdo Principal -->
-    <main class="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <main id="main-content" class="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
         <!-- =====================================================================
              ABA 1: RESUMO GERAL (KPIs + SEGMENTADOR + TABELA DE VALIDADES)
              ===================================================================== -->
         <section id="view-dashboard" class="space-y-6">
 
-            <!-- Faixa Superior de 6 Indicadores (Linha Superior Colorida) -->
+            <!-- Faixa Superior de 6 Indicadores Interativos (Botões de Filtro) -->
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
-                <div class="bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#0F294A] p-4 shadow-2xs">
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">Total Unidades</span>
+                <button type="button" onclick="setSlicerStatus('all')" id="kpi-card-all" title="Filtrar: Todos os Produtos" class="kpi-filter-card bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#0F294A] p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all text-left group cursor-pointer focus:outline-none">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block group-hover:text-[#0F294A] transition-colors">Total Unidades</span>
+                        <i data-lucide="filter" class="w-3.5 h-3.5 text-slate-300 group-hover:text-[#0F294A] transition-colors"></i>
+                    </div>
                     <p id="kpi-total-units" class="text-2xl sm:text-3xl font-extrabold text-[#0F294A] mt-1">0</p>
                     <span id="kpi-total-skus-sub" class="text-[11px] text-slate-500 mt-1 block">0 lotes • 0 produtos</span>
-                </div>
+                </button>
 
-                <div class="bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#DC2626] p-4 shadow-2xs">
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">Vencidos</span>
+                <button type="button" onclick="setSlicerStatus('expired')" id="kpi-card-expired" title="Filtrar: Produtos Vencidos" class="kpi-filter-card bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#DC2626] p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all text-left group cursor-pointer focus:outline-none">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block group-hover:text-[#DC2626] transition-colors">Vencidos</span>
+                        <i data-lucide="filter" class="w-3.5 h-3.5 text-slate-300 group-hover:text-[#DC2626] transition-colors"></i>
+                    </div>
                     <p id="kpi-expired-count" class="text-2xl sm:text-3xl font-extrabold text-[#DC2626] mt-1">0</p>
                     <span class="text-[11px] text-slate-500 mt-1 block">Ação imediata</span>
-                </div>
+                </button>
 
-                <div class="bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#D9530F] p-4 shadow-2xs">
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">Até 15 Dias</span>
+                <button type="button" onclick="setSlicerStatus('urgent')" id="kpi-card-urgent" title="Filtrar: Vencendo em até 15 Dias" class="kpi-filter-card bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#D9530F] p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all text-left group cursor-pointer focus:outline-none">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block group-hover:text-[#D9530F] transition-colors">Até 15 Dias</span>
+                        <i data-lucide="filter" class="w-3.5 h-3.5 text-slate-300 group-hover:text-[#D9530F] transition-colors"></i>
+                    </div>
                     <p id="kpi-urgent-count" class="text-2xl sm:text-3xl font-extrabold text-[#D9530F] mt-1">0</p>
                     <span class="text-[11px] text-slate-500 mt-1 block">Prioridade alta</span>
-                </div>
+                </button>
 
-                <div class="bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#FACC15] p-4 shadow-2xs">
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">Até 30 Dias</span>
+                <button type="button" onclick="setSlicerStatus('warning')" id="kpi-card-warning" title="Filtrar: Vencendo em até 30 Dias" class="kpi-filter-card bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#FACC15] p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all text-left group cursor-pointer focus:outline-none">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block group-hover:text-amber-600 transition-colors">Até 30 Dias</span>
+                        <i data-lucide="filter" class="w-3.5 h-3.5 text-slate-300 group-hover:text-amber-600 transition-colors"></i>
+                    </div>
                     <p id="kpi-warning-count" class="text-2xl sm:text-3xl font-extrabold text-amber-600 mt-1">0</p>
                     <span class="text-[11px] text-slate-500 mt-1 block">Atenção</span>
-                </div>
+                </button>
 
-                <div class="bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#16A34A] p-4 shadow-2xs">
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">Longe de Vencer</span>
+                <button type="button" onclick="setSlicerStatus('ok')" id="kpi-card-ok" title="Filtrar: Produtos Longe de Vencer" class="kpi-filter-card bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#16A34A] p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all text-left group cursor-pointer focus:outline-none">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block group-hover:text-[#16A34A] transition-colors">Longe de Vencer</span>
+                        <i data-lucide="filter" class="w-3.5 h-3.5 text-slate-300 group-hover:text-[#16A34A] transition-colors"></i>
+                    </div>
                     <p id="kpi-ok-count" class="text-2xl sm:text-3xl font-extrabold text-[#16A34A] mt-1">0</p>
                     <span class="text-[11px] text-slate-500 mt-1 block">Estoque regular</span>
-                </div>
+                </button>
 
-                <div class="bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#E30613] p-4 shadow-2xs">
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block">Em Falta / Repor</span>
+                <button type="button" onclick="setSlicerStatus('low')" id="kpi-card-low" title="Filtrar: Itens em Falta ou a Repor" class="kpi-filter-card bg-white rounded-xl border border-slate-200 border-t-4 border-t-[#E30613] p-4 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all text-left group cursor-pointer focus:outline-none">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 block group-hover:text-[#E30613] transition-colors">Em Falta / Repor</span>
+                        <i data-lucide="filter" class="w-3.5 h-3.5 text-slate-300 group-hover:text-[#E30613] transition-colors"></i>
+                    </div>
                     <p id="kpi-low-count" class="text-2xl sm:text-3xl font-extrabold text-[#E30613] mt-1">0</p>
                     <span id="kpi-occupancy-sub" class="text-[11px] text-slate-500 mt-1 block">0% mapa (0/15)</span>
-                </div>
+                </button>
             </div>
 
             <!-- Área Principal com Segmentador Lateral + Painel de Sub-abas -->
@@ -350,14 +359,14 @@
                             <table class="w-full text-left border-collapse">
                                 <thead>
                                     <tr class="bg-[#0F294A] text-white text-[11px] font-bold uppercase tracking-wider">
-                                        <th class="py-3 px-4">Produto</th>
-                                        <th class="py-3 px-4">Posição</th>
-                                        <th class="py-3 px-4">Validade</th>
-                                        <th class="py-3 px-4">Dias Restantes</th>
-                                        <th class="py-3 px-4">Status</th>
-                                        <th class="py-3 px-4 text-center">Quantidade</th>
-                                        <th class="py-3 px-4">Observações</th>
-                                        <th class="py-3 px-4 text-right">Ações</th>
+                                        <th class="py-3.5 px-4 text-left">Produto</th>
+                                        <th class="py-3.5 px-4 text-left">Posição</th>
+                                        <th class="py-3.5 px-4 text-center">Validade</th>
+                                        <th class="py-3.5 px-4 text-center">Dias Restantes</th>
+                                        <th class="py-3.5 px-4 text-center">Status</th>
+                                        <th class="py-3.5 px-4 text-center">Quantidade</th>
+                                        <th class="py-3.5 px-4 text-left">Observações</th>
+                                        <th class="py-3.5 px-4 text-center">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody id="dash-overview-tbody" class="divide-y divide-slate-200 text-xs"></tbody>
@@ -1078,28 +1087,10 @@
     <!-- =========================================================================
          LÓGICA COMPLETA DO SISTEMA + BANCO DE DADOS PERSISTENTE (FIRESTORE / IDB)
          ========================================================================= -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, runTransaction, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        const appId = 'senai-estoque-2026';
-        const firebaseConfig = {
-            apiKey: "AIzaSyBfcDituy8f7_wgIijeJ-uW4ZAHAZ93KxM",
-            authDomain: "senai-estoque-2026.firebaseapp.com",
-            projectId: "senai-estoque-2026",
-            storageBucket: "senai-estoque-2026.firebasestorage.app",
-            messagingSenderId: "376980171597",
-            appId: "1:376980171597:web:1d905f4554f4912b136504"
-        };
-        const IDB_NAME = 'senai_estoque_2d_db';
-        const IDB_STORE = 'state_store';
-
-        let firestoreDb = null;
-        let currentAuthUser = null;
-        let isSavingToCloud = false;
+    <script>
+        let isSaving = false;
+        let isSyncing = false;
         const dirtyDocs = new Set();
-        const remoteRevisions = { products: 0, slots: 0, lots: 0, history: 0 };
 
         // Sanitização contra XSS para qualquer conteúdo interpolado em innerHTML
         function escapeHtml(value) {
@@ -1211,190 +1202,102 @@
             }
         }
 
-        function openIndexedDB() {
-            return new Promise((resolve, reject) => {
-                if (!window.indexedDB) return reject(new Error('IndexedDB indisponível'));
-                const req = indexedDB.open(IDB_NAME, 1);
-                req.onupgradeneeded = (e) => {
-                    const db = e.target.result;
-                    if (!db.objectStoreNames.contains(IDB_STORE)) {
-                        db.createObjectStore(IDB_STORE);
-                    }
-                };
-                req.onsuccess = () => resolve(req.result);
-                req.onerror = () => reject(req.error);
-            });
-        }
-
-        async function loadIndexedDBFallback() {
-            try {
-                const db = await openIndexedDB();
-                const saved = await new Promise((resolve, reject) => {
-                    const tx = db.transaction(IDB_STORE, 'readonly');
-                    const getReq = tx.objectStore(IDB_STORE).get('main_state');
-                    getReq.onsuccess = () => resolve(getReq.result);
-                    getReq.onerror = () => reject(getReq.error);
-                });
-                if (saved && typeof saved === 'object') {
-                    appState = {
-                        products: Array.isArray(saved.products) ? saved.products : [],
-                        slots: saved.slots && typeof saved.slots === 'object' ? saved.slots : {},
-                        unallocatedLots: Array.isArray(saved.unallocatedLots) ? saved.unallocatedLots : [],
-                        customSlots: Array.isArray(saved.customSlots) ? saved.customSlots : [],
-                        history: Array.isArray(saved.history) ? saved.history : []
-                    };
-                }
-                updateDbStatusUI('connected', 'Banco Local Salvo');
-            } catch (err) {
-                console.error('Erro ao ler banco local:', err);
-                updateDbStatusUI('error', 'Modo temporário');
-            }
-        }
-
-        async function saveIndexedDBFallback() {
-            try {
-                updateDbStatusUI('saving', 'Salvando no banco...');
-                const db = await openIndexedDB();
-                await new Promise((resolve, reject) => {
-                    const tx = db.transaction(IDB_STORE, 'readwrite');
-                    tx.objectStore(IDB_STORE).put(JSON.parse(JSON.stringify(appState)), 'main_state');
-                    tx.oncomplete = () => resolve();
-                    tx.onerror = () => reject(tx.error);
-                });
-                dirtyDocs.clear();
-                updateDbStatusUI('connected', 'Banco Local Salvo');
-            } catch (err) {
-                console.error('Erro ao salvar no banco local:', err);
-                updateDbStatusUI('error', 'Erro ao salvar');
-            }
-        }
+        // =========================================================================
+        // COMUNICAÇÃO COM O BACKEND PHP / MYSQL
+        // =========================================================================
 
         async function initDatabase() {
-            updateDbStatusUI('connecting', 'Conectando ao banco...');
-            if (firebaseConfig) {
-                try {
-                    const app = initializeApp(firebaseConfig);
-                    const auth = getAuth(app);
-                    const db = getFirestore(app);
+            updateDbStatusUI('connecting', 'Conectando ao MySQL...');
+            try {
+                const response = await fetch('api.php?action=get_all', { cache: 'no-store' });
+                const json = await response.json();
+                if (json.success && json.data) {
+                    appState.products = Array.isArray(json.data.products) ? json.data.products : [];
+                    appState.slots = (json.data.slots && typeof json.data.slots === 'object') ? json.data.slots : {};
+                    appState.unallocatedLots = Array.isArray(json.data.unallocatedLots) ? json.data.unallocatedLots : [];
+                    appState.customSlots = Array.isArray(json.data.customSlots) ? json.data.customSlots : [];
+                    appState.history = Array.isArray(json.data.history) ? json.data.history : [];
 
-                    try {
-                        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                            await signInWithCustomToken(auth, __initial_auth_token);
-                        } else {
-                            await signInAnonymously(auth);
-                        }
-                    } catch (authErr) {
-                        console.warn('Autenticação anônima desativada ou ignorada no console, prosseguindo com Firestore:', authErr);
-                    }
+                    updateDbStatusUI('connected', 'Banco MySQL Conectado');
+                    renderAll();
 
-                    firestoreDb = db;
-                    currentAuthUser = auth.currentUser || { uid: 'test-user' };
-
-                    const dbColRef = collection(db, 'artifacts', appId, 'public', 'data', 'estoque_senai');
-                    onSnapshot(
-                        dbColRef,
-                        (snapshot) => {
-                            if (isSavingToCloud) return;
-                            if (snapshot.empty) {
-                                markDirty('products', 'slots', 'lots', 'history');
-                                saveState(true);
-                            } else {
-                                snapshot.forEach((docSnap) => {
-                                    const data = docSnap.data();
-                                    const rev = typeof data.revision === 'number' ? data.revision : 0;
-                                    if (docSnap.id === 'products' && Array.isArray(data.items)) {
-                                        appState.products = data.items;
-                                        remoteRevisions.products = rev;
-                                    } else if (docSnap.id === 'slots') {
-                                        if (data.slots && typeof data.slots === 'object') appState.slots = data.slots;
-                                        if (Array.isArray(data.customSlots)) appState.customSlots = data.customSlots;
-                                        remoteRevisions.slots = rev;
-                                    } else if (docSnap.id === 'lots' && Array.isArray(data.unallocatedLots)) {
-                                        appState.unallocatedLots = data.unallocatedLots;
-                                        remoteRevisions.lots = rev;
-                                    } else if (docSnap.id === 'history' && Array.isArray(data.history)) {
-                                        appState.history = data.history;
-                                        remoteRevisions.history = rev;
-                                    }
-                                });
-                            }
-                            updateDbStatusUI('connected', 'Banco de Dados Salvo');
-                            renderAll();
-                        },
-                        (error) => {
-                            console.error('Erro na sincronização Firestore:', error);
-                            updateDbStatusUI('error', 'Erro de sincronização');
-                            renderAll();
-                        }
-                    );
+                    // Sincronização periódica em segundo plano (a cada 6 segundos)
+                    setInterval(pollDatabaseUpdates, 6000);
                     return;
-                } catch (err) {
-                    console.error('Erro ao iniciar Firestore:', err);
+                } else {
+                    throw new Error(json.error || 'Resposta inválida do servidor');
                 }
+            } catch (err) {
+                console.error('Erro ao conectar ao PHP/MySQL:', err);
+                updateDbStatusUI('error', 'Sem conexão MySQL');
+                showToast('Aviso: Não foi possível carregar os dados do MySQL. Verifique api.php / config.php', 'error');
+                renderAll();
             }
-
-            await loadIndexedDBFallback();
-            renderAll();
         }
 
-        async function saveState(isInitialSeed = false) {
-            if (firestoreDb && currentAuthUser) {
-                const keysToSave = dirtyDocs.size > 0
-                    ? [...dirtyDocs]
-                    : ['products', 'slots', 'lots', 'history'];
+        async function pollDatabaseUpdates() {
+            // Não sincroniza enquanto estiver salvando ou com modais de edição abertos
+            if (isSaving || isSyncing) return;
+            const openModals = document.querySelectorAll('div[id^="modal-"]:not(.hidden)');
+            if (openModals.length > 0) return;
 
-                try {
-                    isSavingToCloud = true;
-                    updateDbStatusUI('saving', 'Salvando no banco...');
-                    const now = new Date().toISOString();
-                    const colPath = ['artifacts', appId, 'public', 'data', 'estoque_senai'];
-
-                    const payloads = {
-                        products: { items: appState.products, updatedAt: now },
-                        slots: { slots: appState.slots, customSlots: appState.customSlots, updatedAt: now },
-                        lots: { unallocatedLots: appState.unallocatedLots, updatedAt: now },
-                        history: { history: appState.history, updatedAt: now }
-                    };
-
-                    await runTransaction(firestoreDb, async (tx) => {
-                        const refs = keysToSave.map(k => ({ key: k, ref: doc(firestoreDb, ...colPath, k) }));
-                        const snaps = await Promise.all(refs.map(r => tx.get(r.ref)));
-
-                        snaps.forEach((snap, idx) => {
-                            const { key } = refs[idx];
-                            const remoteRev = snap.exists() && typeof snap.data().revision === 'number' ? snap.data().revision : 0;
-                            if (!isInitialSeed && remoteRev > remoteRevisions[key]) {
-                                throw new Error(`CONFLICT:${key}`);
-                            }
-                        });
-
-                        snaps.forEach((snap, idx) => {
-                            const { key, ref } = refs[idx];
-                            const currentRev = snap.exists() && typeof snap.data().revision === 'number' ? snap.data().revision : 0;
-                            const nextRev = currentRev + 1;
-                            tx.set(ref, { ...payloads[key], revision: nextRev });
-                            remoteRevisions[key] = nextRev;
-                        });
-                    });
-
-                    dirtyDocs.clear();
-                    updateDbStatusUI('connected', 'Banco de Dados Salvo');
-                } catch (err) {
-                    console.error('Erro ao salvar no Firestore:', err);
-                    if (String(err.message || '').startsWith('CONFLICT:')) {
-                        updateDbStatusUI('error', 'Conflito de edição');
-                        showToast('Outro usuário alterou os dados antes. Recarregando estado mais recente...', 'error');
-                    } else {
-                        updateDbStatusUI('error', 'Erro ao salvar');
-                        if (!isInitialSeed) showToast('Erro ao salvar no banco de dados.', 'error');
-                    }
-                } finally {
-                    isSavingToCloud = false;
+            try {
+                isSyncing = true;
+                const response = await fetch('api.php?action=get_all', { cache: 'no-store' });
+                const json = await response.json();
+                if (json.success && json.data) {
+                    appState.products = Array.isArray(json.data.products) ? json.data.products : [];
+                    appState.slots = (json.data.slots && typeof json.data.slots === 'object') ? json.data.slots : {};
+                    appState.unallocatedLots = Array.isArray(json.data.unallocatedLots) ? json.data.unallocatedLots : [];
+                    appState.customSlots = Array.isArray(json.data.customSlots) ? json.data.customSlots : [];
+                    appState.history = Array.isArray(json.data.history) ? json.data.history : [];
+                    renderAll();
                 }
-                return;
+            } catch (err) {
+                // Silencioso no polling
+            } finally {
+                isSyncing = false;
             }
+        }
 
-            await saveIndexedDBFallback();
+        async function saveState() {
+            if (isSaving) return;
+            isSaving = true;
+            updateDbStatusUI('saving', 'Salvando no MySQL...');
+
+            const dirtyKeys = dirtyDocs.size > 0
+                ? [...dirtyDocs]
+                : ['products', 'slots', 'lots', 'history'];
+
+            const payload = {
+                dirtyKeys,
+                products: appState.products,
+                slots: appState.slots,
+                unallocatedLots: appState.unallocatedLots,
+                customSlots: appState.customSlots,
+                history: appState.history
+            };
+
+            try {
+                const response = await fetch('api.php?action=save_state', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const json = await response.json();
+                if (json.success) {
+                    dirtyDocs.clear();
+                    updateDbStatusUI('connected', 'Banco de Dados Salvo (MySQL)');
+                } else {
+                    throw new Error(json.error || 'Erro ao persistir no MySQL');
+                }
+            } catch (err) {
+                console.error('Erro ao salvar no MySQL:', err);
+                updateDbStatusUI('error', 'Erro ao salvar no MySQL');
+                showToast('Erro ao salvar os dados no MySQL: ' + err.message, 'error');
+            } finally {
+                isSaving = false;
+            }
         }
 
         function getAllSlotDefinitions() {
@@ -1431,8 +1334,9 @@
                     slotBg: 'bg-slate-600 border-slate-800 hover:bg-slate-700 shadow-sm',
                     slotTextMain: 'text-white',
                     slotTextSub: 'text-slate-200',
-                    badgeClass: 'bg-slate-500 text-white',
-                    rowClass: 'bg-slate-50/75 hover:bg-slate-100/70 border-l-4 border-l-slate-400'
+                    badgeClass: 'bg-slate-700 text-white shadow-2xs font-bold',
+                    textClass: 'text-slate-700 font-bold',
+                    rowClass: 'bg-slate-100 hover:bg-slate-200/90 border-l-[6px] border-l-slate-400'
                 };
             }
             const days = getDaysUntilExpiry(expiryStr);
@@ -1446,8 +1350,9 @@
                     slotBg: 'bg-slate-600 border-slate-800 hover:bg-slate-700 shadow-sm',
                     slotTextMain: 'text-white',
                     slotTextSub: 'text-slate-200',
-                    badgeClass: 'bg-slate-500 text-white',
-                    rowClass: 'bg-slate-50/75 hover:bg-slate-100/70 border-l-4 border-l-slate-400'
+                    badgeClass: 'bg-slate-700 text-white shadow-2xs font-bold',
+                    textClass: 'text-slate-700 font-bold',
+                    rowClass: 'bg-slate-100 hover:bg-slate-200/90 border-l-[6px] border-l-slate-400'
                 };
             }
             if (days < 0) {
@@ -1460,8 +1365,9 @@
                     slotBg: 'bg-[#DC2626] border-red-900 hover:bg-red-700 shadow-sm',
                     slotTextMain: 'text-white',
                     slotTextSub: 'text-red-100',
-                    badgeClass: 'bg-[#DC2626] text-white',
-                    rowClass: 'bg-red-50/75 hover:bg-red-50 border-l-4 border-l-[#DC2626]'
+                    badgeClass: 'bg-[#DC2626] text-white shadow-2xs font-extrabold',
+                    textClass: 'text-[#DC2626] font-extrabold',
+                    rowClass: 'bg-red-100 hover:bg-red-200/90 border-l-[6px] border-l-[#DC2626]'
                 };
             }
             if (days <= 15) {
@@ -1474,8 +1380,9 @@
                     slotBg: 'bg-[#D9530F] border-orange-900 hover:bg-orange-700 shadow-sm',
                     slotTextMain: 'text-white',
                     slotTextSub: 'text-orange-100',
-                    badgeClass: 'bg-[#D9530F] text-white',
-                    rowClass: 'bg-orange-50/75 hover:bg-orange-50 border-l-4 border-l-[#D9530F]'
+                    badgeClass: 'bg-[#D9530F] text-white shadow-2xs font-extrabold',
+                    textClass: 'text-[#C2410C] font-extrabold',
+                    rowClass: 'bg-orange-100 hover:bg-orange-200/90 border-l-[6px] border-l-[#D9530F]'
                 };
             }
             if (days <= 30) {
@@ -1488,8 +1395,9 @@
                     slotBg: 'bg-[#FACC15] border-yellow-600 hover:bg-yellow-500 shadow-sm',
                     slotTextMain: 'text-slate-950',
                     slotTextSub: 'text-slate-800',
-                    badgeClass: 'bg-[#FACC15] text-slate-900',
-                    rowClass: 'bg-yellow-50/75 hover:bg-yellow-50 border-l-4 border-l-[#FACC15]'
+                    badgeClass: 'bg-[#FACC15] text-slate-950 shadow-2xs font-extrabold border border-amber-400',
+                    textClass: 'text-amber-900 font-extrabold',
+                    rowClass: 'bg-amber-100 hover:bg-amber-200/90 border-l-[6px] border-l-[#FACC15]'
                 };
             }
             return {
@@ -1501,8 +1409,9 @@
                 slotBg: 'bg-[#16A34A] border-emerald-900 hover:bg-emerald-700 shadow-sm',
                 slotTextMain: 'text-white',
                 slotTextSub: 'text-emerald-100',
-                badgeClass: 'bg-[#16A34A] text-white',
-                rowClass: 'bg-emerald-50/60 hover:bg-emerald-50 border-l-4 border-l-[#16A34A]'
+                badgeClass: 'bg-[#16A34A] text-white shadow-2xs font-extrabold',
+                textClass: 'text-[#15803D] font-extrabold',
+                rowClass: 'bg-emerald-100/90 hover:bg-emerald-200/85 border-l-[6px] border-l-[#16A34A]'
             };
         }
 
@@ -1544,10 +1453,10 @@
                 if (!view || !btn) return;
                 if (t === tabName) {
                     view.classList.remove('hidden');
-                    btn.className = 'nav-btn flex-1 xl:flex-none px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 bg-white text-[#0F294A] shadow-sm whitespace-nowrap';
+                    btn.className = 'nav-btn w-full px-3 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 bg-white text-[#0F294A] shadow-sm whitespace-nowrap';
                 } else {
                     view.classList.add('hidden');
-                    btn.className = 'nav-btn flex-1 xl:flex-none px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2 whitespace-nowrap';
+                    btn.className = 'nav-btn w-full px-3 py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2 whitespace-nowrap';
                 }
             });
             renderAll();
@@ -1675,8 +1584,17 @@
         // ABA 1: RESUMO GERAL (SEGMENTADOR, KPIs E SUB-MENUS)
         // =========================================================================
 
-        function setSlicerStatus(statusKey) {
-            dashboardSlicerStatus = statusKey;
+        const KPI_FILTER_CONFIG = {
+            all: { ring: 'ring-[#0F294A]', text: 'text-[#0F294A]' },
+            expired: { ring: 'ring-[#DC2626]', text: 'text-[#DC2626]' },
+            urgent: { ring: 'ring-[#D9530F]', text: 'text-[#D9530F]' },
+            warning: { ring: 'ring-[#FACC15]', text: 'text-amber-600' },
+            ok: { ring: 'ring-[#16A34A]', text: 'text-[#16A34A]' },
+            low: { ring: 'ring-[#E30613]', text: 'text-[#E30613]' }
+        };
+
+        function syncSlicerUI(statusKey) {
+            // 1. Sincroniza botões do segmentador lateral
             document.querySelectorAll('.slicer-status-btn').forEach(btn => {
                 btn.classList.remove('border-2', 'border-[#0F294A]', 'bg-[#0F294A]/5', 'text-[#0F294A]', 'font-bold');
                 btn.classList.add('border', 'border-slate-200', 'bg-white', 'text-slate-700', 'font-semibold');
@@ -1686,7 +1604,44 @@
                 activeBtn.classList.remove('border', 'border-slate-200', 'bg-white', 'text-slate-700', 'font-semibold');
                 activeBtn.classList.add('border-2', 'border-[#0F294A]', 'bg-[#0F294A]/5', 'text-[#0F294A]', 'font-bold');
             }
-            renderDashboard();
+
+            // 2. Sincroniza os 6 cards de KPI superiores
+            const allRingClasses = [
+                'ring-2', 'ring-offset-2', 'scale-[1.02]', 'bg-slate-50/80', 'shadow-md',
+                'ring-[#0F294A]', 'ring-[#DC2626]', 'ring-[#D9530F]', 'ring-[#FACC15]', 'ring-[#16A34A]', 'ring-[#E30613]'
+            ];
+
+            document.querySelectorAll('.kpi-filter-card').forEach(card => {
+                card.classList.remove(...allRingClasses);
+                card.setAttribute('aria-pressed', 'false');
+                const icon = card.querySelector('[data-lucide="filter"], .lucide-filter');
+                if (icon) {
+                    icon.classList.remove('text-[#0F294A]', 'text-[#DC2626]', 'text-[#D9530F]', 'text-amber-600', 'text-[#16A34A]', 'text-[#E30613]', 'opacity-100');
+                    icon.classList.add('text-slate-300');
+                }
+            });
+
+            const activeKpi = document.getElementById(`kpi-card-${statusKey}`);
+            if (activeKpi && KPI_FILTER_CONFIG[statusKey]) {
+                const conf = KPI_FILTER_CONFIG[statusKey];
+                activeKpi.classList.add('ring-2', 'ring-offset-2', conf.ring, 'scale-[1.02]', 'bg-slate-50/80', 'shadow-md');
+                activeKpi.setAttribute('aria-pressed', 'true');
+                const activeIcon = activeKpi.querySelector('[data-lucide="filter"], .lucide-filter');
+                if (activeIcon) {
+                    activeIcon.classList.remove('text-slate-300');
+                    activeIcon.classList.add(conf.text, 'opacity-100');
+                }
+            }
+        }
+
+        function setSlicerStatus(statusKey) {
+            dashboardSlicerStatus = statusKey;
+            syncSlicerUI(statusKey);
+            if (dashboardSubView !== 'overview') {
+                setDashboardSubView('overview');
+            } else {
+                renderDashboard();
+            }
         }
 
         function setDashboardSubView(subKey) {
@@ -1905,6 +1860,9 @@
             const subtabLowBadge = document.getElementById('subtab-low-badge');
             if (subtabLowBadge) subtabLowBadge.textContent = lowCount;
 
+            // Sincroniza estado ativo nos 6 cards superiores e segmentador lateral
+            syncSlicerUI(dashboardSlicerStatus);
+
             // Filtra e ordena itens para Sub-view 1
             const dashSortMode = (document.getElementById('dash-sort')?.value) || 'expiry-asc';
             const filteredItems = sortProductItems(
@@ -1964,11 +1922,11 @@
                         : '<span class="text-slate-400 italic">Não alocado</span>';
 
                     const expiryCellHtml = activeExpDate
-                        ? `<div>
+                        ? `<div class="text-center">
                                <p class="font-extrabold text-slate-900">${escapeHtml(activeExpDate.slice(5, 7))}/${escapeHtml(activeExpDate.slice(0, 4))}</p>
                                <p class="text-[11px] text-slate-500">Ref: ${escapeHtml(formatDateBR(activeExpDate))}</p>
                            </div>`
-                        : '<span class="text-slate-400">—</span>';
+                        : '<span class="text-slate-400 italic">—</span>';
 
                     const obsText = escapeHtml((nearestLot && nearestLot.slot.observations) || prod.observations || '—');
 
@@ -1977,38 +1935,38 @@
                         : (isLow ? '<span class="ml-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800">Baixo</span>' : '');
 
                     return `
-                        <tr class="${rowStatus.rowClass} transition-colors">
-                            <td class="py-3.5 px-4">
-                                <p class="font-extrabold text-slate-900 text-xs sm:text-[13px]">${safeProdName}${stockBadge}</p>
-                                <p class="text-[11px] text-slate-500">${safeSku} • ${safeCat}</p>
+                        <tr class="${rowStatus.rowClass} transition-colors border-b border-slate-300">
+                            <td class="py-3.5 px-4 align-middle text-left">
+                                <p class="font-extrabold text-slate-900 text-xs sm:text-[13px] leading-tight">${safeProdName}${stockBadge}</p>
+                                <p class="text-[11px] text-slate-600 font-medium mt-0.5">${safeSku} • ${safeCat}</p>
                             </td>
-                            <td class="py-3.5 px-4">
-                                <div class="flex flex-wrap gap-1">${locationsHtml}</div>
+                            <td class="py-3.5 px-4 align-middle text-left">
+                                <div class="flex flex-wrap gap-1 items-center">${locationsHtml}</div>
                             </td>
-                            <td class="py-3.5 px-4">${expiryCellHtml}</td>
-                            <td class="py-3.5 px-4 font-bold text-slate-800">${escapeHtml(rowStatus.daysLabel)}</td>
-                            <td class="py-3.5 px-4">
-                                <span class="inline-block px-3 py-1 rounded-full text-[11px] font-bold ${rowStatus.badgeClass}">
+                            <td class="py-3.5 px-4 align-middle text-center">${expiryCellHtml}</td>
+                            <td class="py-3.5 px-4 align-middle text-center ${rowStatus.textClass}">${escapeHtml(rowStatus.daysLabel)}</td>
+                            <td class="py-3.5 px-4 align-middle text-center">
+                                <span class="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold ${rowStatus.badgeClass}">
                                     ${escapeHtml(rowStatus.label)}
                                 </span>
                             </td>
-                            <td class="py-3.5 px-4 text-center">
-                                <div class="inline-flex items-center justify-center bg-white border border-slate-200 rounded-lg shadow-2xs overflow-hidden">
+                            <td class="py-3.5 px-4 align-middle text-center">
+                                <div class="inline-flex items-center justify-center bg-white border border-slate-300 rounded-lg shadow-2xs overflow-hidden">
                                     <button onclick="adjustProductQuickQty('${safeProdId}', -1)" title="Remover 1 unidade" class="px-2.5 py-1 text-slate-600 hover:bg-slate-100 font-bold text-xs">−</button>
                                     <span class="px-3 py-1 font-extrabold text-slate-900 min-w-[38px] text-center">${totalQty}</span>
                                     <button onclick="adjustProductQuickQty('${safeProdId}', 1)" title="Adicionar 1 unidade" class="px-2.5 py-1 text-slate-600 hover:bg-slate-100 font-bold text-xs">+</button>
                                 </div>
                             </td>
-                            <td class="py-3.5 px-4 text-slate-500 max-w-[180px] truncate" title="${obsText}">${obsText}</td>
-                            <td class="py-3.5 px-4 text-right">
-                                <div class="inline-flex items-center gap-1.5 text-slate-500">
-                                    <button onclick="openAllocateModal('', '${safeProdId}')" title="Alocar lote no Mapa 2D" class="p-1.5 rounded-lg hover:bg-white hover:text-[#0F294A] transition-colors">
+                            <td class="py-3.5 px-4 align-middle text-left text-slate-700 font-medium max-w-[180px] truncate" title="${obsText}">${obsText}</td>
+                            <td class="py-3.5 px-4 align-middle text-center">
+                                <div class="inline-flex items-center justify-center gap-1.5 text-slate-600">
+                                    <button onclick="openAllocateModal('', '${safeProdId}')" title="Alocar lote no Mapa 2D" class="p-1.5 rounded-lg bg-white/90 hover:bg-white text-slate-700 hover:text-[#0F294A] border border-slate-300 shadow-2xs transition-all">
                                         <i data-lucide="map-pin" class="w-4 h-4"></i>
                                     </button>
-                                    <button onclick="openProductModal('${safeProdId}')" title="Editar produto" class="p-1.5 rounded-lg hover:bg-white hover:text-[#0F294A] transition-colors">
+                                    <button onclick="openProductModal('${safeProdId}')" title="Editar produto" class="p-1.5 rounded-lg bg-white/90 hover:bg-white text-slate-700 hover:text-[#0F294A] border border-slate-300 shadow-2xs transition-all">
                                         <i data-lucide="pencil" class="w-4 h-4"></i>
                                     </button>
-                                    <button onclick="deleteProduct('${safeProdId}')" title="Excluir produto" class="p-1.5 rounded-lg hover:bg-white hover:text-[#DC2626] transition-colors">
+                                    <button onclick="deleteProduct('${safeProdId}')" title="Excluir produto" class="p-1.5 rounded-lg bg-white/90 hover:bg-white text-[#DC2626] border border-slate-300 shadow-2xs transition-all">
                                         <i data-lucide="trash-2" class="w-4 h-4"></i>
                                     </button>
                                 </div>
@@ -2038,7 +1996,7 @@
                                 <div class="min-w-0 flex-1">
                                     <div class="flex items-center justify-between gap-2">
                                         <span class="text-[10px] font-bold uppercase text-slate-400">${safeSku}</span>
-                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${cardStatus.badgeClass}">${escapeHtml(cardStatus.label)}</span>
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-bold ${cardStatus.badgeClass}">${escapeHtml(cardStatus.label)}</span>
                                     </div>
                                     <h4 class="text-xs font-extrabold text-slate-900 mt-0.5 truncate">${safeProdName}</h4>
                                     <p class="text-[11px] text-slate-500 truncate">${locationsText}</p>
@@ -2088,7 +2046,7 @@
                         </div>
                         <p class="text-[11px] text-slate-500 mt-1">Qtd: <strong>${l.slot.qty} ${safeUnit}</strong> • Vencimento: <strong>${escapeHtml(formatDateBR(l.slot.expiryDate))}</strong></p>
                     </div>
-                    <span class="px-2.5 py-1 rounded-full text-[11px] font-bold shrink-0 ${l.status.badgeClass}">${escapeHtml(l.status.daysLabel)}</span>
+                    <span class="px-2.5 py-1 rounded-md text-[11px] font-bold shrink-0 ${l.status.badgeClass}">${escapeHtml(l.status.daysLabel)}</span>
                 </button>`;
             };
 
@@ -2138,10 +2096,10 @@
                         const pct = minStock > 0 ? Math.min(100, Math.round((totalQty / minStock) * 100)) : 100;
                         const barColor = isEmpty ? 'bg-[#DC2626]' : (isLow ? 'bg-[#D9530F]' : 'bg-[#16A34A]');
                         const statusPill = isEmpty
-                            ? '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#DC2626] text-white">Em Falta</span>'
+                            ? '<span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-[#DC2626] text-white">Em Falta</span>'
                             : (isLow
-                                ? '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#FACC15] text-slate-900">Reposição</span>'
-                                : '<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#16A34A] text-white">Regular</span>');
+                                ? '<span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-[#FACC15] text-slate-900">Reposição</span>'
+                                : '<span class="px-2.5 py-1 rounded-md text-[11px] font-bold bg-[#16A34A] text-white">Regular</span>');
 
                         const locText = lots.length > 0
                             ? escapeHtml(lots.map(l => `${l.slotCode} (${l.slot.qty})`).join(', '))
@@ -2362,7 +2320,7 @@
                             <h3 class="text-lg font-extrabold text-slate-900">${safeCode}</h3>
                             <p class="text-xs text-slate-500">${safeLabel}</p>
                         </div>
-                        <span class="px-3 py-1 rounded-full text-xs font-extrabold ${status.badgeClass}">${escapeHtml(status.shortLabel)}</span>
+                        <span class="px-2.5 py-1 rounded-md text-xs font-extrabold ${status.badgeClass}">${escapeHtml(status.shortLabel)}</span>
                     </div>
 
                     <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-200">

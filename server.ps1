@@ -1,5 +1,6 @@
 $port = 8080
-$root = "C:\Users\Aluno\.gemini\antigravity\scratch\senai-estoque-2d"
+$root = $PSScriptRoot
+if ([string]::IsNullOrEmpty($root)) { $root = Get-Location }
 $listener = New-Object System.Net.HttpListener
 $listener.Prefixes.Add("http://localhost:$port/")
 $listener.Start()

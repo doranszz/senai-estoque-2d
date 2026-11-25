@@ -4,8 +4,8 @@
 ================================================================================
 Data de Atualização: 25/11/2026
 Projeto: senai-estoque-2d
-Banco na Nuvem: Firebase Cloud Firestore (Projeto: senai-estoque-2026)
-Status Atual: 100% Funcional e com Sincronização em Nuvem Ativa
+Persistência e Backend: PHP 8.x + MySQL Relacional (PDO com transações e UTF8mb4)
+Status Atual: 100% Funcional e com Sincronização MySQL Ativa (Compatível com Hospedagem Online)
 ================================================================================
 
 1. OBJETIVO GERAL DO SISTEMA
@@ -18,21 +18,20 @@ O sistema permite:
 - Cadastrar produtos por categorias padronizadas e regras específicas;
 - Controlar lotes, validades (com alertas por cores), estoque mínimo e máximo;
 - Importar e exportar catálogos e inventários via planilhas Excel (.xlsx);
-- Sincronizar o estado completo em tempo real na nuvem (Firestore), permitindo
-  que múltiplos computadores e usuários acessem exatamente o mesmo estoque.
+- Persistir o estado completo de forma relacional no MySQL, permitindo
+  que múltiplos computadores, abas e usuários acessem exatamente o mesmo estoque
+  em qualquer provedor de hospedagem web (cPanel, Hostinger, AWS ou local no Laragon).
 
 
 2. ARQUITETURA E TECNOLOGIAS UTILIZADAS
 --------------------------------------------------------------------------------
-- Frontend: Single-File Application (index.html) de alta performance
+- Frontend: Single-File Application (index.html / index.php) de alta performance
 - Estilização & UI: Tailwind CSS (via CDN) + Lucide Icons + Identidade Visual SENAI
 - Manipulação de Planilhas: SheetJS / xlsx (via CDN)
-- Persistência Primária: Google Firebase Cloud Firestore (v11.6.1)
-  * Sincronização bidirecional em tempo real (onSnapshot)
-  * Controle de concorrência com travas transacionais e revisões
-- Persistência Secundária (Fallback): IndexedDB local no navegador (caso offline)
-- Servidor de Desenvolvimento Local: PowerShell HttpListener (server.ps1) ou
-  qualquer servidor estático (Live Server, Python http.server, etc.)
+- Backend API: PHP 8.x nativo (api.php) com endpoints RESTful JSON
+- Banco de Dados: MySQL (database.sql) com tabelas relacionais indexadas
+- Configuração de Conexão: config.php (PDO com variáveis de ambiente ou credenciais padrão)
+- Servidor Web: Apache do Laragon, Nginx, PHP Built-in Server ou qualquer hospedagem cPanel
 
 
 3. O QUE JÁ FOI IMPLEMENTADO COM SUCESSO
@@ -81,7 +80,8 @@ PASSO 1: Copiar os Arquivos
 Copie toda a pasta do projeto para a nova máquina:
 - Arquivos essenciais:
   * index.html (aplicação completa)
-  * server.ps1 (script para rodar servidor local no Windows)
+  * server.ps1 (script para rodar servidor local no Windows, ajustado dinamicamente para $PSScriptRoot)
+  * firestore.rules (regras de segurança para manter acesso permanente no Console do Firebase)
   * plano_de_implementacao.txt (este documento de referência)
 
 PASSO 2: Iniciar o Servidor Local

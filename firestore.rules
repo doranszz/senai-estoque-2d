@@ -1,0 +1,9 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Permite leitura e escrita completa na coleção do sistema de estoque do SENAI
+    match /artifacts/{appId}/public/data/estoque_senai/{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
