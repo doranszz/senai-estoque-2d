@@ -16,12 +16,18 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
     exit;
 }
 
-// Configurações do Banco de Dados (Altere conforme sua hospedagem online ou local)
-define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
-define('DB_PORT', getenv('DB_PORT') ?: '3306');
-define('DB_NAME', getenv('DB_NAME') ?: 'senai_estoque_2d');
-define('DB_USER', getenv('DB_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : 'mysql');
+// Chaves injetadas pelo GitHub Actions (.github/workflows/deploy.yml via sed)
+$host = '__DB_HOST__';
+$name = '__DB_NAME__';
+$user = '__DB_USER__';
+$pass = '__DB_PASS__';
+
+// Se não foram substituídas no deploy, usa as credenciais locais padrão
+define('DB_HOST', str_starts_with($host, '__DB_') ? '127.0.0.1' : $host);
+define('DB_PORT', '3306');
+define('DB_NAME', str_starts_with($name, '__DB_') ? 'senai_estoque_2d' : $name);
+define('DB_USER', str_starts_with($user, '__DB_') ? 'root' : $user);
+define('DB_PASS', str_starts_with($pass, '__DB_') ? 'mysql' : $pass);
 
 /**
  * Retorna uma instância PDO configurada
