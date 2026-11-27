@@ -732,7 +732,7 @@ $roleClass = $currentUser['role'] === ROLE_ADMIN ? 'role-admin' : 'role-operador
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div class="sm:col-span-3">
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Nome do Produto <span class="text-[#E30613]">*</span></label>
-                            <input type="text" id="prod-name" required
+                            <input type="text" id="prod-name" required oninput="onProductNameInput()"
                                 placeholder="Ex: Tomate Italiano, Arroz Branco 5 kg, Álcool 70%..."
                                 class="w-full text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#0F294A] focus:border-transparent transition-all">
                         </div>
@@ -744,7 +744,7 @@ $roleClass = $currentUser['role'] === ROLE_ADMIN ? 'role-admin' : 'role-operador
                         </div>
                         <div class="sm:col-span-2">
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Categoria <span class="text-[#E30613]">*</span></label>
-                            <select id="prod-category" required onchange="onCategoryChange()"
+                            <select id="prod-category" required onchange="this.dataset.userEdited = '1'; onCategoryChange()"
                                 class="w-full text-xs bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#0F294A] focus:border-transparent transition-all">
                                 <option value="">Selecione a categoria</option>
                                 <optgroup label="Alimentos">
@@ -761,6 +761,7 @@ $roleClass = $currentUser['role'] === ROLE_ADMIN ? 'role-admin' : 'role-operador
                                     <option value="Higiene & Limpeza">Higiene & Limpeza</option>
                                     <option value="Material de Escritório">Material de Escritório</option>
                                 </optgroup>
+                                <option value="Geral">Geral (sem categoria específica)</option>
                                 <option value="Outra">Outra (especificar abaixo)</option>
                             </select>
                         </div>
@@ -2799,6 +2800,64 @@ $roleClass = $currentUser['role'] === ROLE_ADMIN ? 'role-admin' : 'role-operador
             'Material de Escritório':   { storage: '', perecivel: false, hint: 'Papel: proteger de umidade. Sem validade de consumo.' },
         };
 
+        // Classificação automática: palavras-chave (sem acento, minúsculas) → categoria.
+        // A ordem importa: a primeira categoria com palavra encontrada vence.
+        const CATEGORY_KEYWORDS = [
+            ['Laticínios & Ovos', ['leite', 'queijo', 'iogurte', 'manteiga', 'margarina', 'requeijao', 'creme de leite', 'nata', 'ovo', 'ovos', 'mussarela', 'muçarela', 'parmesao', 'ricota', 'coalhada', 'leite condensado']],
+            ['Doces & Chocolates', ['chocolate', 'achocolatado', 'cacau', 'doce', 'bala', 'balas', 'bombom', 'goiabada', 'brigadeiro', 'granulado', 'acucar', 'mel', 'geleia', 'biscoito', 'bolacha', 'wafer', 'sobremesa', 'gelatina', 'pudim', 'cobertura', 'confeito', 'paçoca', 'pacoca']],
+            ['Bebidas', ['suco', 'refrigerante', 'agua mineral', 'agua', 'cafe', 'cha', 'cerveja', 'vinho', 'refresco', 'energetico', 'isotonico', 'bebida', 'guarana', 'coca', 'nectar', 'xarope']],
+            ['Grãos & Cereais', ['feijao', 'arroz', 'lentilha', 'grao de bico', 'grao', 'graos', 'ervilha seca', 'milho', 'pipoca', 'aveia', 'granola', 'cereal', 'cereais', 'soja', 'quinoa', 'linhaca', 'chia', 'cevada', 'trigo em grao', 'canjica', 'amendoim', 'castanha']],
+            ['Farinhas & Amidos', ['farinha', 'fuba', 'amido', 'maisena', 'polvilho', 'tapioca', 'goma', 'fecula', 'farelo', 'massa', 'macarrao', 'espaguete', 'lasanha', 'fermento', 'mistura para bolo', 'empanar', 'rosca']],
+            ['Temperos & Condimentos', ['sal', 'pimenta', 'oregano', 'tempero', 'caldo', 'cominho', 'colorau', 'canela', 'cravo', 'louro', 'paprica', 'curry', 'açafrao', 'acafrao', 'vinagre', 'oleo', 'azeite', 'molho', 'catchup', 'ketchup', 'maionese', 'mostarda', 'shoyu', 'extrato de tomate', 'condimento', 'alho em po', 'noz moscada']],
+            ['Legumes & Verduras', ['tomate', 'cebola', 'alho', 'batata', 'cenoura', 'abobora', 'abobrinha', 'chuchu', 'beterraba', 'pepino', 'pimentao', 'alface', 'couve', 'repolho', 'brocolis', 'espinafre', 'rucula', 'agriao', 'mandioca', 'aipim', 'inhame', 'berinjela', 'quiabo', 'vagem', 'legume', 'legumes', 'verdura', 'verduras', 'salsa', 'cebolinha', 'coentro', 'cheiro verde', 'banana', 'maca', 'laranja', 'limao', 'fruta', 'frutas', 'mamao', 'melancia', 'abacaxi', 'uva', 'morango']],
+            ['Higiene & Limpeza', ['sabao', 'sabonete', 'detergente', 'desinfetante', 'agua sanitaria', 'alvejante', 'cloro', 'alcool', 'amaciante', 'esponja', 'shampoo', 'xampu', 'condicionador', 'creme dental', 'pasta de dente', 'escova', 'papel higienico', 'limpador', 'multiuso', 'lustra moveis', 'vassoura', 'rodo', 'pano', 'flanela', 'luva', 'luvas', 'desengordurante', 'higienizador', 'sanitizante', 'limpeza', 'saco de lixo', 'saco lixo']],
+            ['Descartáveis & Embalagens', ['descartavel', 'descartaveis', 'copo', 'copos', 'prato', 'pratos', 'talher', 'talheres', 'garfo', 'faca', 'colher', 'guardanapo', 'canudo', 'marmitex', 'embalagem', 'embalagens', 'pote', 'potes', 'filme plastico', 'papel aluminio', 'papel manteiga', 'sacola', 'saco', 'sacos', 'bandeja', 'touca', 'mascara', 'isopor', 'tampa', 'papel toalha']],
+            ['Material de Escritório', ['caneta', 'lapis', 'borracha', 'papel a4', 'papel sulfite', 'sulfite', 'caderno', 'grampo', 'grampeador', 'clipe', 'clips', 'pasta', 'envelope', 'fita adesiva', 'durex', 'tesoura', 'cola', 'marca texto', 'pincel', 'post it', 'bloco de notas', 'etiqueta', 'toner', 'cartucho', 'regua', 'calculadora', 'escritorio']],
+        ];
+
+        function normalizeForMatch(text) {
+            return ' ' + String(text || '').toLowerCase()
+                .normalize('NFD').replace(/[̀-ͯ]/g, '')
+                .replace(/[^a-z0-9]+/g, ' ').trim() + ' ';
+        }
+
+        const CATEGORY_KEYWORDS_NORM = CATEGORY_KEYWORDS.map(([cat, words]) =>
+            [cat, words.map(w => normalizeForMatch(w))]);
+
+        // Retorna a categoria sugerida para o nome do produto, ou '' se nenhuma regra casar.
+        // Vence a palavra-chave que aparece primeiro no nome (o substantivo principal em pt-BR:
+        // "Suco de laranja" → Bebidas, "Farinha de milho" → Farinhas); no empate, a mais longa
+        // ("creme dental" antes de "creme").
+        function classifyProductCategory(name) {
+            const text = normalizeForMatch(name);
+            if (text.trim() === '') return '';
+            let best = '', bestPos = Infinity, bestLen = 0;
+            for (const [cat, words] of CATEGORY_KEYWORDS_NORM) {
+                for (const w of words) {
+                    // casa palavra inteira, aceitando plural simples ("ovos", "copos")
+                    let pos = text.indexOf(w);
+                    if (pos < 0) pos = text.indexOf(w.replace(/ $/, 's '));
+                    if (pos < 0) continue;
+                    if (pos < bestPos || (pos === bestPos && w.length > bestLen)) {
+                        best = cat; bestPos = pos; bestLen = w.length;
+                    }
+                }
+            }
+            return best;
+        }
+
+        // Ao digitar o nome, escolhe a categoria sozinho — a menos que o usuário já tenha escolhido manualmente.
+        function onProductNameInput() {
+            const catSelect = document.getElementById('prod-category');
+            if (catSelect.dataset.userEdited) return;
+            const name = document.getElementById('prod-name').value.trim();
+            // Nome sem categoria clara cai em "Geral"; campo vazio volta para "Selecione".
+            const target = name ? (classifyProductCategory(name) || 'Geral') : '';
+            if (catSelect.value === target) return;
+            catSelect.value = target;
+            onCategoryChange();
+        }
+
         function onCategoryChange() {
             const catSelect = document.getElementById('prod-category');
             const customWrap = document.getElementById('prod-custom-category-wrap');
@@ -2906,6 +2965,8 @@ $roleClass = $currentUser['role'] === ROLE_ADMIN ? 'role-admin' : 'role-operador
             const storageEl = document.getElementById('prod-storage');
             storageEl.onchange = () => { storageEl.dataset.userEdited = '1'; };
 
+            // Na edição, a categoria salva é respeitada; em novo produto, ela segue o nome digitado.
+            catSelect.dataset.userEdited = prod ? '1' : '';
             if (!prod) {
                 // Para novo produto, sugere SKU só depois de escolher categoria
                 catSelect.value = '';
@@ -3422,7 +3483,8 @@ $roleClass = $currentUser['role'] === ROLE_ADMIN ? 'role-admin' : 'role-operador
                 items.push({
                     name: nameVal,
                     sku: skuVal,
-                    category: catVal || 'Geral',
+                    // Sem categoria explícita (coluna vazia ou aba genérica): classifica pelo nome
+                    category: (catVal && catVal !== 'Geral') ? catVal : (classifyProductCategory(nameVal) || 'Geral'),
                     expiryDate,
                     qty: !isNaN(qtyVal) && qtyVal >= 0 ? qtyVal : 1,
                     unit: unitVal || 'un',
