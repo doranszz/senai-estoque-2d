@@ -764,10 +764,12 @@ $roleClass = $currentUser['role'] === ROLE_ADMIN ? 'role-admin' : 'role-operador
                                 <option value="Geral">Geral (sem categoria específica)</option>
                                 <option value="Outra">Outra (especificar abaixo)</option>
                             </select>
+                            <p id="prod-category-auto" class="hidden text-[10px] text-slate-500 mt-1"></p>
                         </div>
                         <div id="prod-custom-category-wrap" class="sm:col-span-3 hidden">
                             <label class="block text-xs font-bold text-slate-700 mb-1.5">Nome da Categoria <span class="text-[#E30613]">*</span></label>
                             <input type="text" id="prod-custom-category"
+                                oninput="document.getElementById('prod-category').dataset.userEdited = '1'"
                                 placeholder="Ex: Suprimentos de TI, Materiais de Limpeza Pesada..."
                                 class="w-full text-xs bg-slate-50 border border-amber-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all">
                         </div>
@@ -2846,19 +2848,113 @@ $roleClass = $currentUser['role'] === ROLE_ADMIN ? 'role-admin' : 'role-operador
             return best;
         }
 
+        // ---------------------------------------------------------------------
+        // Aprendizado com o catálogo: usa as categorias que as pessoas já escolheram
+        // para produtos parecidos. Produtos em "Geral" não ensinam nada (são os sem categoria).
+        // ---------------------------------------------------------------------
+        const NAME_STOPWORDS = new Set(['de', 'da', 'do', 'das', 'dos', 'com', 'sem', 'para', 'em', 'e', 'a', 'o', 'tipo',
+            'kg', 'g', 'gr', 'mg', 'l', 'lt', 'ml', 'un', 'und', 'unid', 'cx', 'pct', 'pc', 'fd', 'm', 'cm', 'mm']);
+
+        // Palavras relevantes do nome, na ordem: "Feijão Carioca 1kg" → ['feijao', 'carioca']
+        function nameTokens(name) {
+            return normalizeForMatch(name).trim().split(' ')
+                .filter(t => t.length >= 2 && !/^\d/.test(t) && !NAME_STOPWORDS.has(t))
+                .map(t => (t.length > 3 && t.endsWith('s')) ? t.slice(0, -1) : t); // plural simples
+        }
+
+        function buildCatalogIndex(excludeId = '') {
+            const exact = new Map();   // nome completo → categoria
+            const head = new Map();    // 1ª palavra → {categoria: [nomes]}
+            const any = new Map();     // qualquer palavra → {categoria: quantidade}
+            for (const p of appState.products || []) {
+                const cat = String(p.category || '').trim();
+                if (!cat || cat === 'Geral' || cat === 'Outra' || p.id === excludeId) continue;
+                const toks = nameTokens(p.name);
+                if (toks.length === 0) continue;
+                exact.set(toks.join(' '), { cat, from: p.name });
+                const h = head.get(toks[0]) || {};
+                (h[cat] = h[cat] || []).push(p.name);
+                head.set(toks[0], h);
+                for (const t of new Set(toks)) {
+                    const a = any.get(t) || {};
+                    a[cat] = (a[cat] || 0) + 1;
+                    any.set(t, a);
+                }
+            }
+            return { exact, head, any };
+        }
+
+        // Categoria majoritária de um contador, se dominar (≥ 70%) — evita palpites em palavras ambíguas.
+        function dominantCategory(counts) {
+            const entries = Object.entries(counts).map(([c, v]) => [c, Array.isArray(v) ? v.length : v]);
+            const total = entries.reduce((s, [, n]) => s + n, 0);
+            entries.sort((x, y) => y[1] - x[1]);
+            return (entries.length && entries[0][1] / total >= 0.7) ? entries[0][0] : '';
+        }
+
+        // Sugere a categoria de um nome. Ordem de confiança:
+        //  1. mesmo nome já cadastrado; 2. mesma palavra principal (1ª palavra) no catálogo;
+        //  3. lista de palavras-chave; 4. outras palavras em comum com o catálogo; 5. "Geral".
+        // Retorna { category, reason } (reason explica a origem para mostrar na tela).
+        function suggestCategory(name, { excludeId = '', index = null } = {}) {
+            const toks = nameTokens(name);
+            if (toks.length === 0) return { category: 'Geral', reason: '' };
+            const idx = index || buildCatalogIndex(excludeId);
+
+            const ex = idx.exact.get(toks.join(' '));
+            if (ex) return { category: ex.cat, reason: `igual a "${ex.from}" já cadastrado` };
+
+            const h = idx.head.get(toks[0]);
+            if (h) {
+                const cat = dominantCategory(h);
+                if (cat) return { category: cat, reason: `parecido com "${h[cat][0]}" já cadastrado` };
+            }
+
+            const kw = classifyProductCategory(name);
+            if (kw) return { category: kw, reason: 'pelas palavras do nome' };
+
+            const score = {};
+            toks.forEach((t, i) => {
+                const a = idx.any.get(t);
+                const cat = a && dominantCategory(a);
+                if (cat) score[cat] = (score[cat] || 0) + 1 / (i + 1); // palavras do início pesam mais
+            });
+            const bestLearned = Object.entries(score).sort((x, y) => y[1] - x[1])[0];
+            if (bestLearned) return { category: bestLearned[0], reason: 'pelo histórico de produtos parecidos' };
+
+            return { category: 'Geral', reason: 'nenhuma categoria clara' };
+        }
+
         // Ao digitar o nome, escolhe a categoria sozinho — a menos que o usuário já tenha escolhido manualmente.
         function onProductNameInput() {
             const catSelect = document.getElementById('prod-category');
+            const autoNote = document.getElementById('prod-category-auto');
             if (catSelect.dataset.userEdited) return;
             const name = document.getElementById('prod-name').value.trim();
-            // Nome sem categoria clara cai em "Geral"; campo vazio volta para "Selecione".
-            const target = name ? (classifyProductCategory(name) || 'Geral') : '';
-            if (catSelect.value === target) return;
-            catSelect.value = target;
-            onCategoryChange();
+            // Campo vazio volta para "Selecione".
+            const sug = name ? suggestCategory(name, { excludeId: document.getElementById('prod-id').value })
+                             : { category: '', reason: '' };
+            if (autoNote) {
+                autoNote.textContent = sug.category ? `Categoria automática: ${sug.reason}.` : '';
+                autoNote.classList.toggle('hidden', !sug.category);
+            }
+
+            const known = Array.from(catSelect.options).some(o => o.value === sug.category && o.value !== 'Outra');
+            const customInput = document.getElementById('prod-custom-category');
+            if (known || !sug.category) {
+                if (catSelect.value === sug.category) return;
+                catSelect.value = sug.category;
+                onCategoryChange({ auto: true });
+            } else {
+                // Categoria personalizada aprendida do catálogo (ex.: "Ferragens")
+                if (catSelect.value === 'Outra' && customInput.value === sug.category) return;
+                catSelect.value = 'Outra';
+                onCategoryChange({ auto: true });
+                customInput.value = sug.category;
+            }
         }
 
-        function onCategoryChange() {
+        function onCategoryChange({ auto = false } = {}) {
             const catSelect = document.getElementById('prod-category');
             const customWrap = document.getElementById('prod-custom-category-wrap');
             const customInput = document.getElementById('prod-custom-category');
@@ -2872,7 +2968,7 @@ $roleClass = $currentUser['role'] === ROLE_ADMIN ? 'role-admin' : 'role-operador
             customWrap.classList.toggle('hidden', !isCustom);
             if (isCustom) {
                 customInput.required = true;
-                customInput.focus();
+                if (!auto) customInput.focus(); // não rouba o foco de quem está digitando o nome
             } else {
                 customInput.required = false;
                 customInput.value = '';
@@ -2952,6 +3048,9 @@ $roleClass = $currentUser['role'] === ROLE_ADMIN ? 'role-admin' : 'role-operador
             const obsEl = document.getElementById('prod-observations');
             if (obsEl) obsEl.value = prod ? (prod.observations || '') : '';
             document.getElementById('prod-category-hint').classList.add('hidden');
+            const autoNote = document.getElementById('prod-category-auto');
+            autoNote.textContent = '';
+            autoNote.classList.add('hidden');
 
             // Preview de validade
             const expiryInput = document.getElementById('prod-default-expiry');
@@ -3415,6 +3514,7 @@ $roleClass = $currentUser['role'] === ROLE_ADMIN ? 'role-admin' : 'role-operador
         function parseRowsMatrixToItems(rowsMatrix, defaultCategory = 'Geral') {
             const items = [];
             if (!Array.isArray(rowsMatrix) || rowsMatrix.length === 0) return items;
+            const catalogIndex = buildCatalogIndex(); // montado uma vez para a planilha inteira
 
             let colMap = { name: 0, category: -1, expiry: -1, qty: -1, unit: -1, slot: -1, obs: -1, sku: -1 };
             let headerRowIndex = -1;
@@ -3484,7 +3584,7 @@ $roleClass = $currentUser['role'] === ROLE_ADMIN ? 'role-admin' : 'role-operador
                     name: nameVal,
                     sku: skuVal,
                     // Sem categoria explícita (coluna vazia ou aba genérica): classifica pelo nome
-                    category: (catVal && catVal !== 'Geral') ? catVal : (classifyProductCategory(nameVal) || 'Geral'),
+                    category: (catVal && catVal !== 'Geral') ? catVal : suggestCategory(nameVal, { index: catalogIndex }).category,
                     expiryDate,
                     qty: !isNaN(qtyVal) && qtyVal >= 0 ? qtyVal : 1,
                     unit: unitVal || 'un',
